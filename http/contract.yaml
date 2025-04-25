@@ -1,0 +1,73 @@
+openapi: 3.0.0
+info:
+  version: 0.0.1
+  title: golang-openapi
+  description: golang-openapi
+  contact:
+    email: gustavo@tinello.com.ar
+
+#servers:
+  # Added by API Auto Mocking Plugin
+  #- description: SwaggerHub API Auto Mocking
+  #  url: https://virtserver.swaggerhub.com/tinello/golang-openapi/0.0.1
+
+
+paths:
+  /:
+    get:
+      operationId: service_info
+      security: [ ]
+      description: |
+        Informa el estado y la version.
+      tags:
+        - Info
+      responses:
+        '200':
+          description: Service info
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - name
+                  - version
+                  - healthy
+                properties:
+                  name:
+                    type: string
+                    example: SSO API
+                  version:
+                    type: string
+                    example: v0.0.1
+                  healthy:
+                    type: boolean
+                    example: true
+                  databases:
+                    type: object
+                    properties:
+                      engine:
+                        type: string
+                        example: postgresql
+                      name:
+                        type: string
+                        example: postgres
+                      healthy:
+                        type: boolean
+                        example: true
+        '500':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+
