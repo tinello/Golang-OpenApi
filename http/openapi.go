@@ -15,7 +15,7 @@ import (
 )
 
 var (
-	operationNotFound = errors.New("Not found")
+	errOperationNotFound = errors.New("operation not found")
 )
 
 func NewOpenApiRouter(contract []byte, operations map[string]http.Handler) http.Handler {
@@ -51,7 +51,7 @@ func (r *openApiRouter) ServeHTTP(response http.ResponseWriter, request *http.Re
 	handler, err := r.validateRequestAndGetOperationHandler(request)
 	switch err {
 	case nil:
-	case operationNotFound:
+	case errOperationNotFound:
 		http_infra.WriteJsonErrorResponse(response, http.StatusNotFound, err.Error())
 		return
 	default:
@@ -65,12 +65,12 @@ func (r *openApiRouter) ServeHTTP(response http.ResponseWriter, request *http.Re
 func (r *openApiRouter) validateRequestAndGetOperationHandler(request *http.Request) (http.Handler, error) {
 	route, pathParams, err := r.router.FindRoute(request)
 	if err != nil {
-		return nil, operationNotFound
+		return nil, errOperationNotFound
 	}
 
 	handler, found := r.operations[route.Operation.OperationID]
 	if !found {
-		return nil, operationNotFound
+		return nil, errOperationNotFound
 	}
 
 	err = openapi3filter.ValidateRequest(

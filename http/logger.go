@@ -16,7 +16,7 @@ func (l Logger) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	l.Handler.ServeHTTP(response, r)
 
-	logRequest(r, response.statusCode, time.Now().Sub(startTime))
+	logRequest(r, response.statusCode, time.Since(startTime))
 }
 
 func newLoggedResponseWriter(w http.ResponseWriter) *logResponseWriter {

@@ -23,7 +23,7 @@ func NewServer(provider *core.Provider, generateId func() string) http.Handler {
 	applicationVersion := GetApplicationVersion()
 	operationHandlers := map[string]http.Handler{}
 	for _, op := range []operation{
-		operations.NewServiceInfo(""),
+		operations.NewServiceInfo("0.0.1"),
 	} {
 		operationHandlers[op.GetId()] = NewOperationHandler(op, provider, generateId, applicationVersion)
 	}
