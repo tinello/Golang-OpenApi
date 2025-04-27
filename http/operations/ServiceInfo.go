@@ -7,6 +7,7 @@ import (
 	"github.com/tinello/golang-openapi/core"
 	sys_domain "github.com/tinello/golang-openapi/core/system/domain"
 	http_infra "github.com/tinello/golang-openapi/http/infrastructure"
+	"go.opentelemetry.io/otel/trace"
 )
 
 func NewServiceInfo(applicationVersion string) *serviceInfo {
@@ -19,7 +20,13 @@ type serviceInfo struct {
 	applicationVersion string
 }
 
-func (s *serviceInfo) Execute(response http.ResponseWriter, _ *http.Request, provider core.Provider) {
+func (s *serviceInfo) Execute(response http.ResponseWriter, request *http.Request, provider core.Provider) {
+
+	ctx := request.Context()
+	span := trace.SpanFromContext(ctx)
+	span.SetName("Service Info")
+	defer span.End()
+
 	result := provider.GetServiceInfo().Execute()
 	if !result.Healthy() {
 		http_infra.WriteJsonDomainErrorResponse(response, result.Error)

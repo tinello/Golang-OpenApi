@@ -53,7 +53,7 @@ func generateId() string {
 func initTracer() func() {
 	ctx := context.Background()
 	client := otlptracegrpc.NewClient(
-		otlptracegrpc.WithEndpoint("localhost:4317"),
+		otlptracegrpc.WithEndpoint(core.MustGetEnv("OTEL_EXPORTER_OTLP_ENDPOINT")),
 		otlptracegrpc.WithInsecure(),
 	)
 
@@ -66,7 +66,7 @@ func initTracer() func() {
 		sdktrace.WithBatcher(exporter),
 		sdktrace.WithResource(resource.NewWithAttributes(
 			semconv.SchemaURL,
-			semconv.ServiceNameKey.String("mi-server-http"),
+			semconv.ServiceNameKey.String(core.MustGetEnv("OTEL_SERVICE_NAME")),
 		)),
 	)
 
