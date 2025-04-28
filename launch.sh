@@ -8,7 +8,7 @@ if [ -z $DATABASE ]; then
 fi
 
 PWD=$(pwd)
-export GOPATH=$PWD/../gopath
+export GOPATH=$PWD/gopath
 export PATH=$GOPATH/bin:$PATH
 
 

@@ -1,0 +1,22 @@
+{
+  "go.gopath": "${workspaceFolder}/gopath",
+  "ginkgotestexplorer.ginkgoPath": "/home/g/DEV/Repos/github_tinello/Golang-OpenApi/gopath/bin/ginkgo",
+  "cSpell.words": [
+    "cves",
+    "getkin",
+    "GOARCH",
+    "gomega",
+    "gorillamux",
+    "mockgen",
+    "onsi",
+    "openapi",
+    "sslmode",
+    "tinello",
+    "webpush"
+  ],
+  "go.autocompleteUnimportedPackages": true,
+  "go.enableCodeLens": {},
+  "window.title": "Golang - API",
+  "scm.showHistoryGraph": true,
+  "debug.showVariableTypes": true
+}
