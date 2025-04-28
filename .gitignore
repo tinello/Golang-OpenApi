@@ -564,6 +564,6 @@ gradle-app.setting
 
 
 gopath/
-#core/mocks/
-#http/contract.go
+core/mocks/
+http/contract.go
 
